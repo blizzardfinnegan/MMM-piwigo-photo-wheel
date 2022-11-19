@@ -1,10 +1,9 @@
-const fsprom = require("fs").promises;
 const path = require("path");
 const fs = require("fs");
 const superagent = require("superagent");
 
 async function getImages(rootPath) {
-  const content = await fsprom.readdir(rootPath, { withFileTypes: true });
+  const content = await fs.promises.readdir(rootPath, { withFileTypes: true });
   const images = content
     .filter((x) => !x.isDirectory())
     .map((x) => x.name)
@@ -14,20 +13,12 @@ async function getImages(rootPath) {
 
 async function deleteImages(rootPath, fileNamesLocal, fileNamesServer) {
   const diff = fileNamesLocal.filter((x) => !fileNamesServer.includes(x));
-  try {
-    for (fileName of diff) {
-      //console.log("delete " + path.join("/", rootPath, fileName));
-      await fsprom.unlink(path.join("/", rootPath, fileName));
-    }
-  } catch (err) {
-    // do not propagate errors so that failed delete will not lead to failed download
-    console.log(err);
+  for (fileName of diff) {
+    await fs.promises.unlink(path.join("/", rootPath, fileName));
   }
 }
 
-async function downloadImages(rootPath, config) {
-  const localFileNames = await getImages(rootPath);
-  const agent = superagent.agent();
+async function fetchServerImages(agent, config) {
   await agent
     .post(config.url + "?format=json&method=pwg.session.login")
     .field("username", config.username)
@@ -37,22 +28,39 @@ async function downloadImages(rootPath, config) {
   );
   respText = JSON.parse(data.res.text);
   images = respText.result.images;
-  serverFileNames = [];
-  for (img of images) {
-    const fileName = img.file;
-    serverFileNames.push(fileName);
-    // Only download if file does not yet exist
-    if (!localFileNames.some((x) => x === fileName)) {
-      await new Promise((resolve) =>
-        agent
-          .get(img.derivatives[config.size].url)
-          .pipe(fs.createWriteStream(path.join("/", rootPath, fileName)))
-          .on("finish", resolve)
-      );
-    }
-  }
 
-  await deleteImages(rootPath, localFileNames, serverFileNames);
+  if (images.length === 0) {
+    throw Error(
+      "There were no images found! Check connection details or upload images."
+    );
+  }
+  return images;
 }
 
-module.exports = { getImages, downloadImages };
+async function downloadImage(agent, url, targetPath) {
+  await new Promise((resolve) =>
+    agent.get(url).pipe(fs.createWriteStream(targetPath)).on("finish", resolve)
+  );
+}
+
+async function syncImages(rootPath, config) {
+  const agent = superagent.agent();
+  const images = await fetchServerImages(agent, config);
+
+  const localFileNames = await getImages(rootPath);
+  const newImages = images.filter((img) => !localFileNames.includes(img.file));
+
+  for (img of newImages) {
+    const url = img.derivatives[config.size].url;
+    await downloadImage(agent, url, path.join("/", rootPath, img.file));
+  }
+
+  await deleteImages(
+    rootPath,
+    localFileNames,
+    images.map((i) => i.file)
+  );
+}
+
+const exportedForTesting = { deleteImages, fetchServerImages, downloadImage };
+module.exports = { getImages, syncImages, exportedForTesting };

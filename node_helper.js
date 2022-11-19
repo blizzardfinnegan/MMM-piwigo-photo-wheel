@@ -1,7 +1,7 @@
 const NodeHelper = require("node_helper");
 const path = require("path");
 const _ = require("lodash");
-const { getImages, downloadImages } = require("./loader");
+const { getImages, syncImages } = require("./loader");
 const Log = require("logger");
 
 module.exports = NodeHelper.create({
@@ -11,7 +11,7 @@ module.exports = NodeHelper.create({
 
   syncImages: function (config) {
     const imagePath = path.join("/", __dirname, "images");
-    downloadImages(imagePath, config)
+    syncImages(imagePath, config)
       .then(() => {
         getImages(imagePath).then((images) => {
           shuffledImages = _.shuffle(images);
@@ -19,7 +19,7 @@ module.exports = NodeHelper.create({
         });
       })
       .catch((err) => {
-        Log.error("Could not download images from piwigo! Error was: ");
+        Log.error("[piwigo] Error: ");
         Log.error(err);
       });
   },

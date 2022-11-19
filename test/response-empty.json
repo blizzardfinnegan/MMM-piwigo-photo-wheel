@@ -1,0 +1,12 @@
+{
+  "stat": "ok",
+  "result": {
+    "paging": {
+      "page": 0,
+      "per_page": 100,
+      "count": 1,
+      "total_count": "1"
+    },
+    "images": []
+  }
+}

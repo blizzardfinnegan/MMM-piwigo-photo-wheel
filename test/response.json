@@ -1,0 +1,81 @@
+{
+  "stat": "ok",
+  "result": {
+    "paging": {
+      "page": 0,
+      "per_page": 100,
+      "count": 1,
+      "total_count": "1"
+    },
+    "images": [
+      {
+        "is_favorite": false,
+        "id": 1,
+        "width": 4016,
+        "height": 5197,
+        "hit": 0,
+        "file": "demo-image.jpg",
+        "name": "demo-image",
+        "comment": null,
+        "date_creation": null,
+        "date_available": "2022-11-01 21:14:08",
+        "page_url": "https://piwigo.example/picture.php?/1",
+        "element_url": "https://piwigo.example/upload/2022/11/01/20221101211408-9a0c06b1.jpg",
+        "derivatives": {
+          "square": {
+            "url": "https://piwigo.example/_data/i/upload/2022/11/01/20221101211408-9a0c06b1-sq.jpg",
+            "width": 120,
+            "height": 120
+          },
+          "thumb": {
+            "url": "https://piwigo.example/i.php?/upload/2022/11/01/20221101211408-9a0c06b1-th.jpg",
+            "width": 111,
+            "height": 144
+          },
+          "2small": {
+            "url": "https://piwigo.example/_data/i/upload/2022/11/01/20221101211408-9a0c06b1-2s.jpg",
+            "width": 185,
+            "height": 240
+          },
+          "xsmall": {
+            "url": "https://piwigo.example/i.php?/upload/2022/11/01/20221101211408-9a0c06b1-xs.jpg",
+            "width": 250,
+            "height": 324
+          },
+          "small": {
+            "url": "https://piwigo.example/_data/i/upload/2022/11/01/20221101211408-9a0c06b1-sm.jpg",
+            "width": 333,
+            "height": 432
+          },
+          "medium": {
+            "url": "https://piwigo.example/_data/i/upload/2022/11/01/20221101211408-9a0c06b1-me.jpg",
+            "width": 459,
+            "height": 594
+          },
+          "large": {
+            "url": "https://piwigo.example/i.php?/upload/2022/11/01/20221101211408-9a0c06b1-la.jpg",
+            "width": 584,
+            "height": 756
+          },
+          "xlarge": {
+            "url": "https://piwigo.example/i.php?/upload/2022/11/01/20221101211408-9a0c06b1-xl.jpg",
+            "width": 709,
+            "height": 918
+          },
+          "xxlarge": {
+            "url": "https://piwigo.example/i.php?/upload/2022/11/01/20221101211408-9a0c06b1-xx.jpg",
+            "width": 959,
+            "height": 1242
+          }
+        },
+        "categories": [
+          {
+            "id": 1,
+            "url": "https://piwigo.example/index.php?/category/1",
+            "page_url": "https://piwigo.example/picture.php?/1/category/1"
+          }
+        ]
+      }
+    ]
+  }
+}
