@@ -1,8 +1,8 @@
 # MMM-piwigo-photo-wheel
-This is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror), which displays images downloaded from a [Piwigo](https://piwigo.org) photo library instance.
+This is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror), which displays images downloaded from a [Piwigo](https://piwigo.org) photo library instance. Every 10 seconds the display changes to the next photo.
 
 ### Preview
-![preview](doc/preview.png)
+![preview](doc/preview2.png)
 
 ## Getting Started
 
