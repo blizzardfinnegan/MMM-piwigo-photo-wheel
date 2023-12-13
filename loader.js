@@ -19,12 +19,17 @@ async function deleteImages(rootPath, fileNamesLocal, fileNamesServer) {
 }
 
 async function fetchServerImages(agent, config) {
+  let sendString = 'username=';
+  sendString += config.username;
+  sendString += '&password=';
+  sendString += config.password;
   await agent
     .post(config.url + "?format=json&method=pwg.session.login")
-    .field("username", config.username)
-    .field("password", config.password);
+	.send(sendString);
+//    .field("username", config.username)
+//    .field("password", config.password);
   const data = await agent.get(
-    config.url + "?format=json&method=pwg.categories.getImages"
+    config.url + "?format=json&method=pwg.categories.getImages&cat_id=1"
   );
   respText = JSON.parse(data.res.text);
   images = respText.result.images;
