@@ -1,0 +1,4 @@
+@xset s noblank
+@xset s off
+@xset -dpms
+@xrandr --output HDMI-1 --mode 720x480 --rotate normal
