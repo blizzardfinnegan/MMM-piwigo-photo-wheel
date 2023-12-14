@@ -48,6 +48,24 @@ Open the newly created `config.js` file, and modify the `modules: []` portion to
     ]
 ```
 
+It is not required, however it is highly recommended that you also include the dimensions of your screen in the modules page. This will make sure that the images downloaded and shown are as large as possible.
+```
+    modules: [
+        {
+            module:'MMM-piwigo-photo-wheel',
+            position:'fullscreen_below', 
+//position options are: top_bar , top_left , top_center , top_right , upper_third , middle_center , lower_third , bottom_left , bottom_center , bottom_right , bottom_bar , fullscreen_above , and fullscreen_below. For more info, see the MagicMirror documentation
+            config:{
+                piwigoBaseUrl: "http://[piwigo server location].ws.php",
+                piwigoUsername: "username",
+                piwigoPassword: "password",
+                maxWidth: "720px",
+                maxHeight: "480px"
+            }
+        },
+    ]
+```
+
 See [the readme](README.md) for more information on configuration of this module.
 
 ## Configuring the Pi
