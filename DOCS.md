@@ -33,7 +33,7 @@ cp MagicMirror/config/config.js.sample MagicMirror/config/config.js
 ```
 
 Open the newly created `config.js` file, and modify the `modules: []` portion to include this module. If you are using this as a digital photo frame, all other modules can optionally be removed. Minimally, your modules configuration should look like this:
-```json
+```
     modules: [
         {
             module:'MMM-piwigo-photo-wheel',
